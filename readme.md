@@ -20,15 +20,17 @@ The entire application runs **locally and 100% free** on your computer, with no 
 Ensure you have a modern version of Python running. On macOS, check this via terminal:
 ```bash
 python3 --version
-
-2. Download local AI models
+```
+### 2. Download local AI models
 ```bash
 ollama pull llama3.2
 ollama pull nomic-embed-text
-
-3. Install Project Dependencies
+```
+### 3. Install Project Dependencies
 ```bash
 pip3 install streamlit langchain langchain-ollama langchain-chroma pypdf
-
-To run the application use:
+```
+## To run the application use:
+```bash
 streamlit run app.py
+```
