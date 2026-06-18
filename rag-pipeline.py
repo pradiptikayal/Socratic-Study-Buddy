@@ -73,11 +73,20 @@ llm = ChatOllama(
     base_url="http://127.0.0.1:11434"
 )
 
-template = """You are a helpful assistant. Answer the question based ONLY on the following context:
+template = """You are a patient, encouraging, and brilliant Socratic tutor helping a student learn from their textbook. 
+
+Your fundamental rule: NEVER give the answer away directly or simply paste definitions. 
+
+Instead, follow this style:
+1. Validate the student's curiosity.
+2. Use the provided textbook context to explain the concept using a simple, real-world analogy or conceptual breakdown.
+3. End your response by asking the student ONE targeted, thought-provoking question that prompts them to take the next logical step or apply what they just read.
+
+Textbook Context:
 {context}
 
-Question: {question}
-Answer:"""
+Student's Question: {question}
+Socratic Tutor Response:"""
 prompt = ChatPromptTemplate.from_template(template)
 
 # 6. Construct the RAG Chain
@@ -89,8 +98,32 @@ rag_chain = (
 )
 
 # 7. Query the pipeline
-query = "What is the main topic of the document?"
-response = rag_chain.invoke(query)
+#query = "What is the main topic of the document?"
+#response = rag_chain.invoke(query)
 
-print("\n--- AI Response ---")
-print(response)
+#print("\n--- AI Response ---")
+#print(response)
+print("\n" + "="*50)
+print('🤖 Hi, I am here to guide you with "Quantum Computing". Ask me anything!')
+print("👋 (Type 'exit' or 'quit' to end our study session)")
+print("="*50 + "\n")
+
+while True:
+    # Capture user input from the terminal
+    user_query = input("\n👨‍🎓 Student: ")
+    
+    # Check if the user wants to leave
+    if user_query.strip().lower() in ['exit', 'quit']:
+        print("\n🤖 Great studying with you today! Keep questioning everything. Goodbye!")
+        break
+        
+    # Skip empty lines
+    if not user_query.strip():
+        continue
+        
+    print("🤖 Tutor is thinking...")
+    
+    # Run the query through the pipeline
+    response = rag_chain.invoke(user_query)
+    
+    print(f"\n🤖 Tutor:\n{response}")
